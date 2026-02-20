@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c77n48p1oa8vg"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" path="res://bird.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://ceni6mu8tk7uq" path="res://pipes.tscn" id="3_1bvp3"]
+
+[sub_resource type="Curve2D" id="Curve2D_0xm2m"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1216, 128, 0, 0, 0, 0, 1216, 384)
+}
+point_count = 2
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_0xm2m")
+pipes_scene = ExtResource("3_1bvp3")
+
+[node name="Bird" parent="." instance=ExtResource("1_ig7tw")]
+position = Vector2(62, 65)
+
+[node name="Pipe Timer" type="Timer" parent="."]
+
+[node name="StartLocation" type="Marker2D" parent="."]
+position = Vector2(88, 128)
+
+[node name="PipesPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_0xm2m")
+
+[node name="PipeSpawnLocation" type="PathFollow2D" parent="PipesPath"]
+position = Vector2(1216, 128)
+rotation = 1.5708
+
+[node name="pipePoint" type="Marker2D" parent="."]
+position = Vector2(1104, 192)
+
+[connection signal="timeout" from="Pipe Timer" to="." method="_on_pipe_timer_timeout"]

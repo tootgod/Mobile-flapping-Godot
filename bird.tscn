@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://rvxi5an8ipov"]
+
+[ext_resource type="Script" uid="uid://bpwfahd5f8rgn" path="res://bird.gd" id="1_crnqq"]
+[ext_resource type="Texture2D" uid="uid://cyyu0lxxqf6uc" path="res://assets/Flappy-Bird-.png" id="1_g5k2s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g5k2s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_g5k2s")
+}],
+"loop": true,
+"name": &"Bird",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_crnqq"]
+radius = 45.0
+height = 192.0
+
+[node name="Bird" type="Area2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_crnqq")
+jump_strength = 500
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7, 23)
+sprite_frames = SubResource("SpriteFrames_g5k2s")
+animation = &"Bird"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_crnqq")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

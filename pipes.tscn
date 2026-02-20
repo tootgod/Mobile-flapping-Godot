@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceni6mu8tk7uq"]
+
+[ext_resource type="Script" uid="uid://bv1g5puk0jsnh" path="res://pipes.gd" id="1_og227"]
+[ext_resource type="Texture2D" uid="uid://djspx5vh2e6qt" path="res://assets/Pipe.png" id="1_r1kwc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dl81w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_r1kwc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rgpn"]
+size = Vector2(20, 123)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_og227"]
+size = Vector2(5.33333, 325)
+
+[node name="Pipes" type="Area2D"]
+scale = Vector2(3, 3)
+script = ExtResource("1_og227")
+move_speed = 205
+
+[node name="Top Pipe" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -100)
+sprite_frames = SubResource("SpriteFrames_dl81w")
+
+[node name="Top Pipe Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -100)
+shape = SubResource("RectangleShape2D_5rgpn")
+
+[node name="Bottom Pipe" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 100)
+rotation = -3.14159
+sprite_frames = SubResource("SpriteFrames_dl81w")
+
+[node name="Bottom Pipe Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 100)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_5rgpn")
+
+[node name="Score Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_og227")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
